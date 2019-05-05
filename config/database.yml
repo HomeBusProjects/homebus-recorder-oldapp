@@ -18,4 +18,11 @@ test:
 
 production:
   encoding: utf8
-
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  host: <%= ENV['POSTGRESQL_HOSTNAME'] %>
+  username: <%= ENV['POSTGRESQL_USERNAME'] %>
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  port: <%= ENV['POSTGRESQL_PORT'] %>
+  database: recorder_production
