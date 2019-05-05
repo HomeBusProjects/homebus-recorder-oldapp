@@ -1,0 +1,146 @@
+---
+- name: install packages
+  apt: name={{ item }} state=latest
+  loop:
+    - openssl
+    - libreadline6-dev
+    - git
+    - git-core
+    - zlib1g
+    - libssl-dev
+    - libyaml-dev
+    - libxml2-dev
+    - libxslt-dev
+    - autoconf
+    - automake
+    - libtool
+    - curl
+    - zlib1g-dev
+
+- name: create homebus user 
+  user: 
+    name:  homebus
+   
+- name: .env
+  template:
+    src: templates/env.j2
+    dest: /home/homebus/.env
+    owner: homebus
+    group: homebus
+    mode: 0400
+
+- name: setup mosquitto config
+  template:
+    src: templates/mosquitto-auth.conf
+    dest: /etc/mosquitto/conf.d/mosquitto-auth.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: create mosquitto log
+  file:
+    path: "/var/log/mosquitto"
+    state: directory
+    mode: 0755
+    owner: mosquitto
+    group: mosquitto
+
+- name: reload mosquitto
+  systemd:
+    name: mosquitto
+    state: reloaded
+
+- name: create folders
+  file:
+    path: "{{item}}"
+    state: directory
+    mode: 0755
+    owner: homebus
+    group: homebus
+  with_items:
+  - ["/home/homebus/HomeBus", "/home/homebus/HomeBus/shared", "/home/homebus/HomeBus/shared/log"]
+
+- name: configure nginx site
+  copy:
+    src: files/nginx-site
+    dest: /etc/nginx/sites-available/homebus.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: create nginx log
+  file:
+    path: "/var/log/nginx"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: enable nginx site
+  file:
+    src: /etc/nginx/sites-available/homebus.conf
+    dest: /etc/nginx/sites-enabled/homebus.conf
+    owner: root
+    group: root
+    state: link
+
+- name: reload nginx
+  systemd:
+    name: nginx
+    state: reloaded
+
+- name: create homebus systemd config
+  copy:
+    src: files/homebus.service
+    dest: /etc/systemd/system/homebus.service
+    owner: root
+    group: root
+    mode: 0440
+
+- name: reload systemd config
+  systemd: daemon_reload=yes
+
+- name: enable homebus 
+  systemd:
+    name: homebus
+    enabled: yes
+
+- name: logging
+  ufw:
+    logging: on
+
+- name: allow SSH
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: allow HTTP
+  ufw:
+    rule: allow
+    port: http
+    proto: tcp
+
+- name: allow HTTPS
+  ufw:
+    rule: allow
+    port: https
+    proto: tcp
+
+- name: allow MQTT
+  ufw:
+    rule: allow
+    port: 1883
+    proto: tcp
+
+- name: allow secure MQTT
+  ufw:
+    rule: allow
+    port: 8883
+    proto: tcp
+
+- name: turn on and disable everything else
+  ufw:
+    state: enabled
+    direction: incoming
+    policy: deny

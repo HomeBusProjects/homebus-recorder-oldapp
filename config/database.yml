@@ -1,0 +1,21 @@
+# set defaults for development and testing under Docker
+# production will need to work with Heroku
+docker-default: &docker-default
+  adapter: postgresql
+  encoding: utf8
+  host: postgres
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *docker-default
+  database: sensor_bucket_development
+
+test:
+  <<: *docker-default
+  database: sensor_bucket_test
+
+production:
+  encoding: utf8
+

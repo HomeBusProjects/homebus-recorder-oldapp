@@ -1,0 +1,2 @@
+class CreateDeviceTable < ApplicationRecord
+end

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nickname:</strong>
+  <%= @create_device_table.nickname %>
+</p>
+
+<p>
+  <strong>Street address:</strong>
+  <%= @create_device_table.street_address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @create_device_table.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @create_device_table.state %>
+</p>
+
+<p>
+  <strong>Postal code:</strong>
+  <%= @create_device_table.postal_code %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @create_device_table.longitude %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @create_device_table.latitude %>
+</p>
+
+<p>
+  <strong>Api key:</strong>
+  <%= @create_device_table.api_key %>
+</p>
+
+<%= link_to 'Edit', edit_create_device_table_path(@create_device_table) %> |
+<%= link_to 'Back', create_device_tables_path %>

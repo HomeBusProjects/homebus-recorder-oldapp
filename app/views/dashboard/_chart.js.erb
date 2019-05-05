@@ -1,0 +1,16 @@
+var chart_<%= chart_suffix %> = nv.models.lineChart()    // Initialise the lineChart object.
+                                       .height(400)
+                                       .useInteractiveGuideline(true); // Turn on interactive guideline (tooltips)
+  
+chart_<%= chart_suffix %>.xAxis.axisLabel('Time'); // Set the label of the xAxis (Vertical)
+
+chart_<%= chart_suffix %>.yAxis.axisLabel('Particle count') // Set the label of the xAxis (Horizontal)
+                    .tickFormat(d3.format('.02f')); // Rounded Numbers Format.
+  
+d3.select('#chart_<%= chart_suffix %> svg') // Select the ID of the html element we defined earlier.
+  .datum(<%= chart_suffix %>_json) // Pass in the JSON
+  .transition().duration(500)    // Set transition speed
+  .style({ height: "400px" })
+  .call(chart_<%= chart_suffix %>);
+
+nv.utils.windowResize(chart_<%= chart_suffix %>.update); // Intitiate listener for window resize so the chart responds and changes width.

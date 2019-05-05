@@ -1,0 +1,39 @@
+---
+- name: logging
+  ufw:
+    logging: on
+
+- name: allow SSH
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: allow HTTP
+  ufw:
+    rule: allow
+    port: http
+    proto: tcp
+
+- name: allow HTTPS
+  ufw:
+    rule: allow
+    port: https
+    proto: tcp
+
+- name: allow MQTT
+  ufw:
+    rule: allow
+    port: mqtt
+    proto: tcp
+
+- name: allow secure MQTT
+  ufw:
+    rule: allow
+    port: 8883
+    proto: tcp
+
+- name: turn on and disable everything else
+  ufw:
+    state: enabled
+    policy: deny
