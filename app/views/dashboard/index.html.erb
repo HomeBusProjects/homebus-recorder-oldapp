@@ -1,51 +1,12 @@
 <% # from https://css-tricks.com/how-to-make-a-modern-dashboard-with-nvd3-js/ %>
 
-<% if false %>
-<p>Average time between samples: <%=  "%0.1f" % @average_sample_delay %>
-<% end  %>
-
 <h1>Current</h1>
-<ul>
-  <li>Max <%=  "%0.1f" % @max_current  %></li>
-  <li>Min <%=  "%0.1f" % @min_current  %></li>
-  <li>Average <%=  "%0.1f" % @average_current  %></li>
-</ul>
-<%= render partial: 'chart.html.erb', locals: { chart_suffix: 'current_2_hours', chart_title: '' } %>
 
-<h1>Voltage</h1>
-<ul>
-   <li>Max <%=  "%0.1f" % @max_voltage  %></li>
-  <li>Min <%=  "%0.1f" % @min_voltage  %></li>
-  <li>Average <%=  "%0.1f" % @average_voltage  %></li>
-</ul>
-<%= render partial: 'chart.html.erb', locals: { chart_suffix: 'voltage_2_hours', chart_title: '' } %>
+<% # render partial: 'chart.html.erb', locals: { chart_suffix: 'current_2_hours', chart_title: '' } %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.js"></script>
 
 <script>
-  var voltage_2_hours_json = [
-  {
-    key: "Voltage",
-    values: [
-  <% @samples_2hours.each do |sample|     %>
-     { "x": <%= sample.uptime %>, "y": <%= sample.temperature %> },
-   <%   end     %>
-     ]
-  } ];
-
-  var current_2_hours_json = [
-  {
-    key: "Current mA",
-    values: [
-  <% @samples_2hours.each do |sample|     %>
-     { "x": <%= sample.uptime %>, "y": <%= sample.humidity %> },
-   <%   end     %>
-     ]
-  } ];
-
-
-<%= render partial: 'chart.js.erb', locals: { chart_suffix: 'voltage_2_hours' } %>
-<%= render partial: 'chart.js.erb', locals: { chart_suffix: 'current_2_hours' } %>
-
+<%= # render partial: 'chart.js.erb', locals: { chart_suffix: 'voltage_2_hours' } %>
 </script>
