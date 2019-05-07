@@ -4,14 +4,14 @@
   become: true
   become_user: root
   vars:
-    ruby_version: 2.6.1 
+    ruby_version: 2.6.2
     rbenv:
       env: user
-      version: v1.1.1
+      version: v1.1.2
       default_ruby:  "{{ ruby_version }}"
       rubies:
         - version:  "{{ ruby_version }}"
-      database_name: homebus 
+      database_name: recorder_production
       database_user_password: foobar
       database_admin_password: foobar
   roles:
@@ -22,18 +22,7 @@
       tags: timezone
       timezone: America/Los_Angeles
 
-
-    - name: pwelch.avahi
-      avahi_hostname: "HomeBus"
-      avahi_domain: "local"
-      avahi_useipv6:  yes 
-      avahi_install_utils: true
-      tags: avahi
-
     - name: geerlingguy.nodejs
-      tags: node
-
-    - name: node-red
       tags: node
 
     - name: zzet.rbenv
@@ -84,11 +73,8 @@
     - name: ocha.yarn
       tags: yarn
 
-    - name: pi-mosquitto
-      tags: mosquitto
-
-    - name: homebus
-      tags: homebus
-      homebus_database: homebus_production
-      mosquitto_database_username: mosquitto
+    - name: recorder
+      tags: recorder
+      homebus_database: recorder_production
+      mosquitto_database_username: recorder
       mosquitto_database_password: foobar

@@ -8,8 +8,6 @@ class PowerJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    puts '>>>> PowerJob'
-
     uri = URI.parse ENV['CLOUDMQTT_URL'] || 'mqtt://localhost:1883'
     pp uri
 
@@ -31,14 +29,19 @@ class PowerJob < ApplicationJob
           
           puts "#{topic}: #{message}"
 
-          json = JSON.parse message
-          if json["uuid"]
-            Sample.create data: message,
-                          topic: topic,
-                          uuid: json["uuid"]
+          begin
+            json = JSON.parse message
+          rescue
+            puts "JSON failure: #{message}"
           else
-            Sample.create data: message,
-                          topic: topic
+            if json["id"]
+              Sample.create data: message,
+                            topic: topic,
+                            uuid: json["id"]
+            else
+              Sample.create data: message,
+                            topic: topic
+            end
           end
         end
       end

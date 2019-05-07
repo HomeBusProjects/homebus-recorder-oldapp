@@ -47,5 +47,6 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap4'
 
 gem 'mqtt'
+gem 'homebus', git: 'https://github.com/HomeBusProjects/ruby-homebus'
 
 gem 'delayed_job_active_record'
