@@ -11,7 +11,16 @@
       <th>created</th>
       <th colspan="2"></th>
     </tr>
+    <tr>
   </thead>
+
+  <tbody>
+    <tr>
+<% @topics.each do |topic| %>
+      <th><%= topic %></th>
+<% end %>    
+    </tr>
+  <tbody>
 
   <tbody>
     <% @samples.each do |sample| %>

@@ -4,7 +4,13 @@ class SamplesController < ApplicationController
   # GET /samples
   # GET /samples.json
   def index
-    @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
+    if params[:topic]
+      @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(topic: params[:topic])
+    else
+      @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
+    end
+
+    @topics = Sample.distinct.pluck(:topic)
   end
 
   # GET /samples/1
