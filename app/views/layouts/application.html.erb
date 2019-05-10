@@ -32,9 +32,11 @@
     <li class="nav-item">
     <%= link_to 'Samples', samples_path, class: 'nav-link' %>
     </li>
+<% if false %>
     <li class="nav-item">
     <%= link_to "Clear DB (#{Sample.count} samples)", '/samples_clear', class: 'nav-link' %>
     </li>
+<% end %>
   </ul>
 </nav>
 
