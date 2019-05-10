@@ -2,6 +2,12 @@
 
 <h1>Samples</h1>
 
+<ul class='list-inline'>
+<% @topics.sort.each do |topic| %>
+    <li class='list-inline-item'><%= topic %></li>
+<% end %>    
+</ul>
+
 <table class='table'>
   <thead>
     <tr>
@@ -13,14 +19,6 @@
     </tr>
     <tr>
   </thead>
-
-  <tbody>
-    <tr>
-<% @topics.each do |topic| %>
-      <th><%= topic %></th>
-<% end %>    
-    </tr>
-  <tbody>
 
   <tbody>
     <% @samples.each do |sample| %>
