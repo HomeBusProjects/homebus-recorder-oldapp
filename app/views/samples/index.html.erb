@@ -4,7 +4,7 @@
 
 <ul class='list-inline'>
 <% @topics.sort.each do |topic| %>
-    <li class='list-inline-item'><%= topic %></li>
+<li class='list-inline-item'><%= link_to topic, controller: 'samples', action: 'index', topic: topic  %></li>
 <% end %>    
 </ul>
 
@@ -24,7 +24,7 @@
     <% @samples.each do |sample| %>
       <tr>
         <td><%= sample.uuid %></td>
-        <td><%= sample.topic %></td>
+        <td><%= link_to sample.topic, controller: 'samples', action: 'index', topic: sample.topic  %></td>
         <td><%= sample.data %></td>
 	<td><%= sample.created_at %></td>
         <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
