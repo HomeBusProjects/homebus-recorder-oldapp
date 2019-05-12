@@ -10,6 +10,12 @@ class SamplesController < ApplicationController
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
     end
 
+    if params[:uuid]
+      @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(uuid: params[:uuid])
+    else
+      @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
+    end
+
     @topics = Sample.distinct.pluck(:topic)
   end
 

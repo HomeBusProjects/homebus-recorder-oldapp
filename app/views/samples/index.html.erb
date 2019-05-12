@@ -24,7 +24,7 @@
   <tbody>
     <% @samples.each do |sample| %>
       <tr>
-        <td><%= sample.uuid %></td>
+        <td><%= link_to sample.uuid, controller: 'samples', action: 'index', uuid: sample.uuid  %></td>
         <td><%= link_to sample.topic, controller: 'samples', action: 'index', topic: sample.topic  %></td>
         <td><%= sample.data %></td>
 	<td><%= sample.created_at %></td>
