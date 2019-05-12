@@ -6,15 +6,12 @@ class SamplesController < ApplicationController
   def index
     if params[:topic]
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(topic: params[:topic])
-    else
-      @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
-    end
-
-    if params[:uuid]
+    elsif params[:uuid]
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(uuid: params[:uuid])
     else
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
     end
+
 
     @topics = Sample.distinct.pluck(:topic)
   end
