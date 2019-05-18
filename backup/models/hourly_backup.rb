@@ -9,7 +9,7 @@
 #
 Model.new(:hourly_backup, 'Description for hourly_backup') do
   database PostgreSQL do |db|
-    db.name      = 'homebus_' + ENV['RAILS_ENV']
+    db.name      = 'recorder_' + ENV['RAILS_ENV']
     db.username  = ENV['POSTGRESQL_USERNAME']
     db.password  = ENV['POSTGRESQL_PASSWORD']
     db.host      = ENV['POSTGRESQL_HOSTNAME']
