@@ -1,5 +1,5 @@
 set :output, "~/recorder/shared/log/whenever.log"
 
 every 1.hour do
-  command "cd ~/recorder/current/backup ; bundle exec backup perform -t hourly_backup.rb -c ~/recorder/current/backup/config.rb"
+  command "cd ~/recorder/current/backup ; bundle exec backup perform -t hourly_backup.rb --config-file ~/recorder/current/backup/config.rb"
 end
