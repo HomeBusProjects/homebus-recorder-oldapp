@@ -8,7 +8,7 @@
 
 require 'dotenv'
 
-Dotenv.load('../.env')
+Dotenv.load(File.expand_path('~/recorder/shared/.env'))
 
 tmp_path  File.expand_path("~/recorder/shared/tmp")
 
