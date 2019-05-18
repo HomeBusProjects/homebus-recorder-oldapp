@@ -52,3 +52,4 @@ gem 'homebus', git: 'https://github.com/HomeBusProjects/ruby-homebus'
 gem 'delayed_job_active_record'
 
 gem 'whenever', require: false
+gem 'backup', require: false
