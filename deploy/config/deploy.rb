@@ -5,6 +5,8 @@ set :application, 'recorder'
 set :repo_url, 'git@github.com:HomeBusProjects/homebus-recorder.git'
 set :rbenv_ruby, '2.6.2'
 
+set :whenever_roles, -> { [ :db ] }
+
 current_branch = `git rev-parse --abbrev-ref HEAD`.strip
 
 # use the branch specified as a param, then use the current branch. If all fails use master branch

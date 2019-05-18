@@ -5,3 +5,4 @@ gem 'capistrano-rails'
 gem 'capistrano-rbenv'
 gem 'capistrano3-puma'
 gem 'bugsnag'
+gem 'whenever', require: false

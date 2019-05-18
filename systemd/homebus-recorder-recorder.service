@@ -1,0 +1,19 @@
+[Unit]
+Description=HomeBus Recorder recording daemon
+After=network.target
+
+[Service]
+Type=simple
+
+User=homebus
+WorkingDirectory=/home/recorder/recorder/current
+
+Environment=RAILS_ENV=production
+
+ExecStart=/home/recorder/.rbenv/bin/rbenv exec bundle exec bin/rails r PowerJob.perform_now
+TimeoutSec=30
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

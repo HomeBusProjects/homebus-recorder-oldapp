@@ -30,7 +30,7 @@ class PowerJob < ApplicationJob
           puts "#{topic}: #{message}"
 
           begin
-            json = JSON.parse message
+            json = JSON.parse message, symbolize_names: true
           rescue
             puts "JSON failure: #{message}"
           else

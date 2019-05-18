@@ -1,0 +1,22 @@
+[Unit]
+Description=HomeBus Recorder
+After=network.target
+
+[Service]
+Type=forking
+
+User=homebus
+WorkingDirectory=/home/recorder/recorder/current
+
+Environment=RAILS_ENV=production
+
+ExecStart=/home/recorder/.rbenv/bin/rbenv exec bundle exec puma  -C /home/recorder/recorder/shared/puma.rb --daemon
+ExecStop=/home/recorder/.rbenv/bin/rbenv exec bundle exec pumactl -S /home/recorder/recorder/shared/tmp/pids/puma.state stop
+TimeoutSec=30
+
+PIDFile=/home/recorder/recorder/shared/tmp/pids/puma.pid
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
