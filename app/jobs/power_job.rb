@@ -33,6 +33,7 @@ class PowerJob < ApplicationJob
             json = JSON.parse message, symbolize_names: true
           rescue
             puts "JSON failure: #{message}"
+            c.publish('/recorder/$error', JSON.generate({ topic: topic, message: "invalid JSON: #{message}" }))
           else
             if json["id"]
               Sample.create data: message,
