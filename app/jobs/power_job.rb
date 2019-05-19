@@ -38,7 +38,7 @@ class PowerJob < ApplicationJob
             if json["id"]
               Sample.create data: message,
                             topic: topic,
-                            uuid: json["id"]
+                            uuid: json[:id]
             else
               Sample.create data: message,
                             topic: topic
