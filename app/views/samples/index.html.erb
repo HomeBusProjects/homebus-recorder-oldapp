@@ -2,10 +2,10 @@
 
 <h1>Samples</h1>
 
-<ul class='list-inline'>
-  <li class='list-inline-item'><%= link_to 'ALL', controller: 'samples', action: 'index'  %></li>
+<ul class='nav'>
+  <li class='nav-item'><%= link_to 'ALL', controller: 'samples', action: 'index', class: 'nav-link'  %></li>
 <% @topics.sort.each do |topic| %>
-  <li class='list-inline-item'><%= link_to topic, controller: 'samples', action: 'index', topic: topic  %></li>
+  <li class='nav-item'><%= link_to topic, controller: 'samples', action: 'index', topic: topic, class: 'nav-link'  %></li>
 <% end %>    
 </ul>
 
