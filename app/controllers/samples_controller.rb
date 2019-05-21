@@ -4,14 +4,16 @@ class SamplesController < ApplicationController
   # GET /samples
   # GET /samples.json
   def index
+    @active_topic = 'ALL'
+
     if params[:topic]
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(topic: params[:topic])
+      @active_topic = params[:topic]
     elsif params[:uuid]
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(uuid: params[:uuid])
     else
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
     end
-
 
     @topics = Sample.distinct.pluck(:topic)
   end
