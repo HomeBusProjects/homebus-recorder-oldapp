@@ -2,7 +2,7 @@
 
 <h1>Samples</h1>
 
-<ul class='nav'>
+<ul class='nav nav-pills nav-fill justify-content-center'>
   <li class='nav-item'><%= link_to 'ALL', { controller: 'samples', action: 'index' },  { class: nav_class('ALL') } %></li>
 <% @topics.sort.each do |topic| %>
   <li class='nav-item'><%= link_to topic, { controller: 'samples', action: 'index', topic: topic }, { class: nav_class(topic) }  %></li>
