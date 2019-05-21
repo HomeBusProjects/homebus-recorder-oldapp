@@ -3,9 +3,9 @@
 <h1>Samples</h1>
 
 <ul class='nav'>
-  <li class='nav-item'><%= link_to 'ALL', controller: 'samples', action: 'index', class: 'nav-link'  %></li>
+  <li class='nav-item'><%= link_to 'ALL', controller: 'samples', action: 'index', { class: 'nav-link' } %></li>
 <% @topics.sort.each do |topic| %>
-  <li class='nav-item'><%= link_to topic, controller: 'samples', action: 'index', topic: topic, class: 'nav-link'  %></li>
+  <li class='nav-item'><%= link_to topic, controller: 'samples', action: 'index', topic: topic, { class: 'nav-link' }  %></li>
 <% end %>    
 </ul>
 
