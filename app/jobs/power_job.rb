@@ -36,11 +36,11 @@ class PowerJob < ApplicationJob
             c.publish('/recorder/$error', JSON.generate({ topic: topic, message: "invalid JSON: #{message}" }))
           else
             if json[:id]
-              Sample.create data: message,
+              Sample.create data: json,
                             topic: topic,
                             uuid: json[:id]
             else
-              Sample.create data: message,
+              Sample.create data: json,
                             topic: topic
             end
           end
