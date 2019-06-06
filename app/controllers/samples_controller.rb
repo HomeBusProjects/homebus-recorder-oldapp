@@ -1,5 +1,7 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: [:show, :edit, :update, :destroy]
+  before_filter :apply_cors_policy
+
 
   # GET /samples
   # GET /samples.json
@@ -81,5 +83,12 @@ class SamplesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sample_params
       params.require(:sample).permit(:uuid, :topic, :data)
+    end
+
+    def apply_cors_policy
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'GET'
+      headers['Access-Control-Request-Method'] = '*'
+      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     end
 end
