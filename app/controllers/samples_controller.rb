@@ -1,7 +1,6 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: [:show, :edit, :update, :destroy]
-  before_filter :apply_cors_policy
-
+  before_action :apply_cors_policy
 
   # GET /samples
   # GET /samples.json
@@ -9,7 +8,7 @@ class SamplesController < ApplicationController
     @active_topic = 'ALL'
 
     if params[:topic]
-      @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(topic: params[:topic])
+      @samples = Sample.order(created_at: :desc).paginate(page: params[:page], per_page: params[:per_page] || 50).where(topic: params[:topic])
       @active_topic = params[:topic]
     elsif params[:uuid]
       @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(uuid: params[:uuid])
