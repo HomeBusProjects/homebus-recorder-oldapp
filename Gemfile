@@ -5,6 +5,8 @@ ruby '2.6.2'
 
 gem 'rails', '~> 5.2.1'
 gem 'puma', '~> 3.11'
+gem 'rack-cors'
+
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
@@ -53,3 +55,4 @@ gem 'delayed_job_active_record'
 
 gem 'whenever', require: false
 gem 'backup', require: false
+

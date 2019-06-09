@@ -23,6 +23,11 @@ class SamplesController < ApplicationController
     end
 
     @topics = Sample.distinct.pluck(:topic)
+
+    respond_to do |format|
+      format.html
+      format.json { apply_cors_policy; render json: #samples }
+    end
   end
 
   # GET /samples/1
