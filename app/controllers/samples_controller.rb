@@ -8,12 +8,18 @@ class SamplesController < ApplicationController
     @active_topic = 'ALL'
 
     if params[:topic]
-      @samples = Sample.order(created_at: :desc).paginate(page: params[:page], per_page: params[:per_page] || 50).where(topic: params[:topic])
+      @samples = Sample.order(created_at: :desc).where(topic: params[:topic])
       @active_topic = params[:topic]
     elsif params[:uuid]
-      @samples = Sample.order(created_at: :desc).paginate(page: params[:page]).where(uuid: params[:uuid])
+      @samples = Sample.order(created_at: :desc).where(uuid: params[:uuid])
     else
-      @samples = Sample.order(created_at: :desc).paginate(page: params[:page])
+      @samples = Sample.order(created_at: :desc)
+    end
+
+    if params[:interval]
+      @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
+    else
+      @samples = @samples.paginate(page: params[:page])
     end
 
     @topics = Sample.distinct.pluck(:topic)
@@ -81,7 +87,7 @@ class SamplesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sample_params
-      params.require(:sample).permit(:uuid, :topic, :data)
+      params.require(:sample).permit(:uuid, :topic, :data, :interval)
     end
 
     def apply_cors_policy
