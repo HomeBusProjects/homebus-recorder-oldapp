@@ -1,6 +1,5 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: [:show, :edit, :update, :destroy]
-#  before_action :apply_cors_policy
 
   # GET /samples
   # GET /samples.json
@@ -26,7 +25,7 @@ class SamplesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { apply_cors_policy; render json: #samples }
+      format.json { json: @samples.all }
     end
   end
 
@@ -94,11 +93,4 @@ class SamplesController < ApplicationController
     def sample_params
       params.require(:sample).permit(:uuid, :topic, :data, :interval)
     end
-
-#    def apply_cors_policy
-#      headers['Access-Control-Allow-Origin'] = '*'
-#      headers['Access-Control-Allow-Methods'] = 'GET'
-#      headers['Access-Control-Request-Method'] = '*'
-#      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-#    end
 end
