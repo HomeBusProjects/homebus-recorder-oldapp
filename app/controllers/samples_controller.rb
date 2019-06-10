@@ -25,7 +25,7 @@ class SamplesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { json: @samples.all }
+      format.json { render json: @samples.all }
     end
   end
 
