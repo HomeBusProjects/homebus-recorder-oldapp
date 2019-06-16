@@ -35,7 +35,7 @@ class PowerJob < ApplicationJob
             puts "JSON failure: #{message}"
             c.publish('/recorder/$error', JSON.generate({ topic: topic, message: "invalid JSON: #{message}" }))
           else
-            if json[:id]
+            if json.class == Hash && json[:id]
               Sample.create data: json,
                             topic: topic,
                             uuid: json[:id]
