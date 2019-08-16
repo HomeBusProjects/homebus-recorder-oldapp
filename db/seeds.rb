@@ -6,45 +6,26 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 start = Time.now - 500
-pm1_0 = 0
-pm2_5 = 0
-pm10_0 = 0
 
-temperature = 20
-humidity = 40
-pressure = 1100
+uuids = []
 
-lux = 100
-ir = 50
+10.times.each do
+  uuids.push SecureRandom.uuid
+end
 
 500.times.each do
-  Sample.create(created_at: start, pm1: pm1_0, pm25: pm2_5, pm10: pm10_0, temperature: temperature, pressure: pressure, humidity: humidity, lux: lux, ir: ir)
-  start += 1
+  uuid = uuids.sample
 
-  pm1_0 -= 5
-  pm1_0 += rand(10)
-  pm1_0 = 0 if pm1_0 < 0
+  topic = "/homebus/device/#{uuid}"
 
-  pm2_5 -= 5
-  pm2_5 += rand(10)
-  pm2_5 = 0 if pm2_5 < 0
+  case rand(8)
+  when 1
+    topic += '/cmd'
+  when 2
+    topic += '/log'
+  when 3
+    topic += '/$error'
+  end
 
-  pm10_0 -= 5
-  pm10_0 += rand(10)
-  pm10_0 = 0 if pm10_0 < 0
-
-  temperature -= 5
-  temperature += rand(10)
-
-  humidity -= 5
-  humidity += rand(10)
-
-  pressure -= 5
-  pressure += rand(10)
-
-  lux -= 5
-  lux += rand(10)
-
-  lux -= 5
-  lux += rand(10)
+  Sample.create(created_at: start, topic: topic, data: { id: uuid, foo: { x: rand(100), y: rand(512) }, bar: rand(1024) })
 end
