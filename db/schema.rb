@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_165254) do
+ActiveRecord::Schema.define(version: 2020_01_02_235135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2019_06_09_165254) do
     t.jsonb "data", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at", "topic"], name: "index_samples_on_created_at_and_topic"
+    t.index ["created_at", "uuid"], name: "index_samples_on_created_at_and_uuid"
     t.index ["created_at"], name: "index_samples_on_created_at"
     t.index ["data"], name: "index_samples_on_data", using: :gin
     t.index ["topic"], name: "index_samples_on_topic"
