@@ -22,17 +22,7 @@ class SamplesController < ApplicationController
     end
 
     #    all_topics = Sample.distinct.pluck(:topic)
-    all_topics = []
     @topics = []
-    all_topics.each do |topic|
-      if topic.match /homebus\/([\d|\-]+)/
-        
-      else if topic.match
-        
-      else
-        @topics.push topic
-      end
-    end
 
     respond_to do |format|
       format.html
