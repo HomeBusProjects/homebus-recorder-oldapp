@@ -80,10 +80,10 @@ class ReportController < ApplicationController
     end
 
     @weather_stations.each do |station|
-      station[:max_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
-      station[:min_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
-      station[:max_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'humidity')::real)")
-      station[:min_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'humidity')::real)")
+      station[:max_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'weather'->>'temperature')::real)")
+      station[:min_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'weather'->>'temperature')::real)")
+      station[:max_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'weather'->>'humidity')::real)")
+      station[:min_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'weather'->>'humidity')::real)")
       station[:samples] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).count
     end
 
