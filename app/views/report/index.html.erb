@@ -18,6 +18,22 @@
 
 <h2>Weather</h2>
 <table class='table'>
+  <tr>
+    <th>Station</th>
+    <th>Max temp</th>
+    <th>Min temp</th>
+    <th>Max humidity</th>
+    <th>Min humidity</th>
+  </tr>
+<% @weather_stations.each do |station| %>
+  <tr>
+    <td><%= station[:name] %></td>
+    <td><%= station[:max_temp] %></td>
+    <td><%= station[:min_temp] %></td>
+    <td><%= station[:max_humidity] %></td>
+    <td><%= station[:min_humidity] %></td>
+  </tr>
+<% end %>
 </table>
 
 <h2>3D Printers</h2>
