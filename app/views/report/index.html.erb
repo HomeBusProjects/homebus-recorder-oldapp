@@ -36,9 +36,28 @@
 <% end %>
 </table>
 
-<h2>3D Printers</h2>
+<h2>Access</h2>
 <table class='table'>
+  <tr>
+    <th>Door</th>
+    <th>Opened</th>
+    <th>Unlocked</th>
+    <th>Locked</th>
+    <th>Denied</th>
+  </tr>
+<% @doors.each do |door| %>
+  <tr>
+    <td><%= door[:name] %></td>
+    <td><%= door[:opened] %></td>
+    <td><%= door[:unlocked] %></td>
+    <td><%= door[:locked] %></td>
+    <td><%= door[:denied] %></td>
+  </tr>
+<% end %>
 </table>
+
+<h2>Network</h2>
+Maximum active hosts <%= @network_active_hosts_max %>
 
 <h2>Laser Printer</h2>
 <table class='table'>
@@ -49,5 +68,7 @@
   </tr>
 </table>
 
-<h2>Network</h2>
-Maximum active hosts <%= @network_active_hosts_max %>
+<h2>3D Printers</h2>
+<table class='table'>
+</table>
+

@@ -1,9 +1,16 @@
 class ReportController < ApplicationController
   def index
-    access = [
-      '4cec18dd-0ecc-4d27-bb91-cabd053ae088',
-      '3cebd358-63bf-42b3-a694-8bd016b86968',
-      '2b2b257a-b846-41f2-b29b-fedb096f59b1'
+    @doors = [
+      {
+        uuid: '3cebd358-63bf-42b3-a694-8bd016b86968',
+        name: 'unit 2 front door'
+      }, {
+        uuid: '4cec18dd-0ecc-4d27-bb91-cabd053ae088',
+        name: 'front craft lab'
+      }, {
+        uuid: '2b2b257a-b846-41f2-b29b-fedb096f59b1',
+        name: 'unit 3 back door'
+      }
     ]
 
     @furballs = [
@@ -85,6 +92,13 @@ class ReportController < ApplicationController
       station[:max_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'weather'->>'humidity')::real)")
       station[:min_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'weather'->>'humidity')::real)")
       station[:samples] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).count
+    end
+
+    @doors.each do |door|
+      door[:opened] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'opened'").count
+      door[:unlocked] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'unlocked'").count
+      door[:locked] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'locked'").count
+      door[:denied] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'access denied'").count
     end
 
     @minutes_in_interval = 1.day.to_i/60
