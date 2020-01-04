@@ -60,8 +60,8 @@ class ReportController < ApplicationController
     @network_active_hosts_max = Sample.where('created_at > ?', Time.now - 1.day).maximum("((data->'active_hosts'->>'arp_table_length')::integer)")
 
     @furballs.each do |furball|
-      furball.max_temp = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
-      furball.min_temp = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
+      furball[:max_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
+      furball[:min_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
     end
   end
 end
