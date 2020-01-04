@@ -87,6 +87,6 @@ class ReportController < ApplicationController
       station[:samples] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).count
     end
 
-    @minutes_in_interval = (Time.now - 1.day).to_i/60
+    @minutes_in_interval = 1.day.to_i/60
   end
 end
