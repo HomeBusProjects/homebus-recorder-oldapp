@@ -57,7 +57,10 @@
 </table>
 
 <h2>Network</h2>
+<hr>
+<p>
 Maximum active hosts <%= @network_active_hosts_max %>
+</p>
 
 <h2>Laser Printer</h2>
 <table class='table'>
@@ -66,9 +69,7 @@ Maximum active hosts <%= @network_active_hosts_max %>
     <th>Pages</th>
     <th>Errors</th>
   </tr>
+  <tr>
+    <td>Brother HL-4150CDN series</td>
+    <td><%= @printer_pages %></td>
 </table>
-
-<h2>3D Printers</h2>
-<table class='table'>
-</table>
-

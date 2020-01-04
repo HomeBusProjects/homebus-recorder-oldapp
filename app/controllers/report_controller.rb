@@ -77,30 +77,40 @@ class ReportController < ApplicationController
       '0b75a4f6-0467-4986-9b05-fedeba1bbbf8'
     ]; 
 
+    @interval = 1.day.to_i
+    @start_time = Time.now - @interval
 
-    @network_active_hosts_max = Sample.where('created_at > ?', Time.now - 1.day).maximum("((data->'active_hosts'->>'arp_table_length')::integer)")
+    @network_active_hosts_max = Sample.where('created_at > ?', @start_time).maximum("((data->'active_hosts'->>'arp_table_length')::integer)")
 
     @furballs.each do |furball|
-      furball[:max_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
-      furball[:min_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
-      furball[:samples] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).count
+      furball[:max_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', @start_time).maximum("((data->'environment'->>'temperature')::real)")
+      furball[:min_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', @start_time).minimum("((data->'environment'->>'temperature')::real)")
+      furball[:samples] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', @start_time).count
     end
 
     @weather_stations.each do |station|
-      station[:max_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'weather'->>'temperature')::real)")
-      station[:min_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'weather'->>'temperature')::real)")
-      station[:max_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'weather'->>'humidity')::real)")
-      station[:min_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'weather'->>'humidity')::real)")
-      station[:samples] = Sample.where(uuid: station[:uuid]).where('created_at > ?', Time.now - 1.day).count
+      station[:max_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', @start_time).maximum("((data->'weather'->>'temperature')::real)")
+      station[:min_temp] = Sample.where(uuid: station[:uuid]).where('created_at > ?', @start_time).minimum("((data->'weather'->>'temperature')::real)")
+      station[:max_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', @start_time).maximum("((data->'weather'->>'humidity')::real)")
+      station[:min_humidity] = Sample.where(uuid: station[:uuid]).where('created_at > ?', @start_time).minimum("((data->'weather'->>'humidity')::real)")
+      station[:samples] = Sample.where(uuid: station[:uuid]).where('created_at > ?', @start_time).count
     end
 
     @doors.each do |door|
-      door[:opened] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'opened'").count
-      door[:unlocked] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'unlocked'").count
-      door[:locked] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'locked'").count
-      door[:denied] = Sample.where(uuid: door[:uuid]).where('created_at > ?', Time.now - 1.day).where("data->>'action' = 'access denied'").count
+      door[:opened] = Sample.where(uuid: door[:uuid]).where('created_at > ?', @start_time).where("data->>'action' = 'opened'").count
+      door[:unlocked] = Sample.where(uuid: door[:uuid]).where('created_at > ?', @start_time).where("data->>'action' = 'unlocked'").count
+      door[:locked] = Sample.where(uuid: door[:uuid]).where('created_at > ?', @start_time).where("data->>'action' = 'locked'").count
+      door[:denied] = Sample.where(uuid: door[:uuid]).where('created_at > ?', @start_time).where("data->>'action' = 'access denied'").count
     end
 
-    @minutes_in_interval = 1.day.to_i/60
+    printer_first = Sample.where(topic: '/printer').where('created_at > ?', @start_time).first
+    printer_last = Sample.where(topic: '/printer').where('created_at > ?', @start_time).first
+    if printer_first && printer_last
+      @printer_pages = printer_last.data["status"]["total_page_count"] - printer_first.data["status"]["total_page_count"]
+    else
+      @printer_pages = nil
+    end
+
+    @minutes_in_interval = @interval/60
   end
 end
