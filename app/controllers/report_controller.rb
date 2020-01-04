@@ -62,6 +62,9 @@ class ReportController < ApplicationController
     @furballs.each do |furball|
       furball[:max_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
       furball[:min_temp] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
+      furball[:samples] = Sample.where(uuid: furball[:uuid]).where('created_at > ?', Time.now - 1.day).count
     end
+
+    @minutes_in_interval = (Time.now - 1.day).to_i/60
   end
 end

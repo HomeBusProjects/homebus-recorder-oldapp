@@ -6,12 +6,14 @@
     <th>Min temp</th>
     <th>Max VOC</th>
     <th>Max PM</th>
+    <th>Samples</th>
   </tr>
 <% @furballs.each do |furball| %>
   <tr>
     <td><%= furball[:name] %></td>
     <td><%= furball[:max_temp] %></td>
     <td><%= furball[:min_temp] %></td>
+    <td><%= furball[:samples] %> / <%= @minutes_in_interval %>
   </tr>
 <% end %>
 </table>
