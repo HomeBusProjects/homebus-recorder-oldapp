@@ -4,8 +4,6 @@
     <th>Room</th>
     <th>Max temp</th>
     <th>Min temp</th>
-    <th>Max VOC</th>
-    <th>Max PM</th>
     <th>Samples</th>
   </tr>
 <% @furballs.each do |furball| %>
@@ -13,7 +11,7 @@
     <td><%= furball[:name] %></td>
     <td><%= furball[:max_temp] %></td>
     <td><%= furball[:min_temp] %></td>
-    <td><%= furball[:samples] %> / <%= @minutes_in_interval %>
+    <td><%= '%0.1f' % ((furball[:samples]*100.0)  / @minutes_in_interval) %> % (<%= furball[:samples] %> / <%= @minutes_in_interval %>)
   </tr>
 <% end %>
 </table>
