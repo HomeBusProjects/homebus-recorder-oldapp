@@ -6,7 +6,7 @@ class ReportController < ApplicationController
       '2b2b257a-b846-41f2-b29b-fedb096f59b1'
     ]
 
-    furballs = [
+    @furballs = [
       {
         uuid: '638a9d78-09f6-4d92-b70a-2b14edb8d84a',
         name: 'Laser Lab'
@@ -59,7 +59,9 @@ class ReportController < ApplicationController
 
     @network_active_hosts_max = Sample.where('created_at > ?', Time.now - 1.day).maximum("((data->'active_hosts'->>'arp_table_length')::integer)")
 
-    Sample.where(uuid: '638a9d78-09f6-4d92-b70a-2b14edb8d84a').where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
-    Sample.where(uuid: '638a9d78-09f6-4d92-b70a-2b14edb8d84a').where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
+    @furballs.each do |furball|
+      furball.max_temp = Sample.where(uuid: furball.uuid).where('created_at > ?', Time.now - 1.day).maximum("((data->'environment'->>'temperature')::real)")
+      furball.min_temp = Sample.where(uuid: furball.uuid).where('created_at > ?', Time.now - 1.day).minimum("((data->'environment'->>'temperature')::real)")
+    end
   end
 end
