@@ -1,12 +1,19 @@
 <h2>Rooms</h2>
 <table class='table'>
-  <th>
+  <tr>
     <th>Room</th>
     <th>Max temp</th>
     <th>Min temp</th>
     <th>Max VOC</th>
     <th>Max PM</th>
-    </th>
+  </tr>
+<% @furballs.each do |furball| %>
+  <tr>
+    <td><%= furball[:name] %></td>
+    <td><%= furball[:max_temp] %></td>
+    <td><%= furball[:min_temp] %></td>
+  </tr>
+<% end %>
 </table>
 
 <h2>Weather</h2>
@@ -18,10 +25,13 @@
 </table>
 
 <h2>Laser Printer</h2>
-Total pages printed
-Errors
-
-<h2>Laser Cutter</h2>
+<table class='table'>
+  <tr>
+    <th>Printer</th>
+    <th>Pages</th>
+    <th>Errors</th>
+  </tr>
+</table>
 
 <h2>Network</h2>
 Maximum active hosts <%= @network_active_hosts_max %>
