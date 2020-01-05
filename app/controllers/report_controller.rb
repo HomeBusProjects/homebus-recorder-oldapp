@@ -1,5 +1,63 @@
+require 'pp'
+
 class ReportController < ApplicationController
   def index
+    pp params
+
+    # get the interval in seconds
+    params.permit(:interval)
+
+    pp params
+    pp params[:interval]
+
+    if params[:interval]
+      @interval = params[:interval].to_i
+    else
+      @interval = 1.day.to_i
+    end
+
+    pp @interval
+
+    @intervals = [
+      {
+        name: '1 hour',
+        interval: 1.hour.to_i
+      }, {
+        name: '2 hours',
+        interval: 2.hours.to_i
+      }, {
+        name: '6 hours',
+        interval: 6.hours.to_i
+      }, {
+        name: '12 hours',
+        interval: 12.hours.to_i
+      }, {
+        name: '1 day',
+        interval: 1.day.to_i
+      }, {
+        name: '2 days',
+        interval: 2.days.to_i
+      }, {
+        name: '3 days',
+        interval: 3.days.to_i
+      }, {
+        name: '5 days',
+        interval: 5.days.to_i
+      }, {
+        name: '1 week',
+        interval: 1.week.to_i
+      }, {
+        name: '2 weeks',
+        interval: 2.weeks.to_i
+      }, {
+        name: '1 month',
+        interval: 30.days.to_i
+      }, {
+        name: '2 months',
+        interval: 60.days.to_i
+      }
+    ]
+
     @doors = [
       {
         uuid: '3cebd358-63bf-42b3-a694-8bd016b86968',
@@ -77,7 +135,6 @@ class ReportController < ApplicationController
       '0b75a4f6-0467-4986-9b05-fedeba1bbbf8'
     ]; 
 
-    @interval = 1.day.to_i
     @start_time = Time.now - @interval
 
     @network_active_hosts_max = Sample.where('created_at > ?', @start_time).maximum("((data->'active_hosts'->>'arp_table_length')::integer)")

@@ -1,3 +1,17 @@
+<div class='row'>
+  <form method='get' class='form-inline'>
+  <div class='col col-3-sm'>
+    <select id='interval' name='interval' class='form-control form-control-lg' onchange='if(this.value != 0) { this.form.submit(); }'>
+<% @intervals.each do |i| %>
+      <option value='<%= i[:interval] %>'<%= i[:interval] == @interval ? ' selected' : '' %>><%= i[:name] %></option>
+<% end %>
+    </select>
+  </div>
+  </form>
+</div>
+
+<div class='row'>
+  <div class='col'>
 <h2>Rooms</h2>
 <table class='table'>
   <tr>
@@ -73,3 +87,5 @@ Maximum active hosts <%= @network_active_hosts_max %>
     <td>Brother HL-4150CDN series</td>
     <td><%= @printer_pages %></td>
 </table>
+  </div>
+</div>
