@@ -40,7 +40,7 @@ gem 'nokogiri'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
-
+gem 'bootstrap4-datetime-picker-rails'
 gem 'font-awesome-rails'
 
 gem 'dotenv-rails'
