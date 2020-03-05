@@ -19,7 +19,7 @@ Model.new(:hourly_backup, 'Description for hourly_backup') do
   compress_with Bzip2
 
   compress_with Bzip2 do |compression|
-    compression.level = 9
+    compression.level = 3
   end
 
   store_with S3 do |s3|
