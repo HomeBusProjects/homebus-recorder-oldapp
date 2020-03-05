@@ -1,0 +1,8 @@
+language: ruby
+dist: bionic
+addons:
+  postgresql: 10.12
+before_install:
+  - gem install bundler
+script:
+  - bundle exec rails db:migrate RAILS_ENV=test
