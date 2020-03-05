@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  uuid: aaaabbbb-cccc-dddd-eeee-ffff00001111
-  topic: org.homebus.tick
-  data: '{ uuid: "aaaabbbb-cccc-dddd-eeee-ffff00001111",   "timestamp": 1582312435, "org.homebus.tick": { "epoch": 1582312435, "year": 2020, "month": 2, "day": 22, "hour": 13, "minute": 13, "second": 0, "timezone_code": "PST", "timezone_offset": -800 } }
+  uuid: "aaaabbbb-cccc-dddd-eeee-ffff00001111"
+  topic: "org.homebus.tick"
+  data: '{ uuid: "aaaabbbb-cccc-dddd-eeee-ffff00001111",   "timestamp": 1582312435, "org.homebus.tick": { "epoch": 1582312435, "year": 2020, "month": 2, "day": 22, "hour": 13, "minute": 13, "second": 0, "timezone_code": "PST", "timezone_offset": -800 } }'
 
 two:
-  uuid: aaaabbbb-cccc-dddd-eeee-ffff00002222
-  topic: org.homebus.tick
-  data: '{ uuid: "aaaabbbb-cccc-dddd-eeee-ffff00002222",   "timestamp": 1582312435, "org.homebus.tick": { "epoch": 1582312435, "year": 2020, "month": 2, "day": 22, "hour": 13, "minute": 13, "second": 0, "timezone_code": "PST", "timezone_offset": -800 } }
+  uuid: "aaaabbbb-cccc-dddd-eeee-ffff00002222"
+  topic: "org.homebus.tick"
+  data: '{ uuid: "aaaabbbb-cccc-dddd-eeee-ffff00002222",   "timestamp": 1582312435, "org.homebus.tick": { "epoch": 1582312435, "year": 2020, "month": 2, "day": 22, "hour": 13, "minute": 13, "second": 0, "timezone_code": "PST", "timezone_offset": -800 } }'
