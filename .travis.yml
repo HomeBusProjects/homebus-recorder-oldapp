@@ -1,11 +1,5 @@
 language: ruby
-dist: xenial
-addons:
-  postgresql: "10.12"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
+dist: bionic
 services:
   - postgresql
 before_install:
