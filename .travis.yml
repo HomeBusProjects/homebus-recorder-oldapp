@@ -4,5 +4,8 @@ addons:
   postgresql: 10.12
 before_install:
   - gem install bundler
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - bundle exec rails db:migrate RAILS_ENV=test
