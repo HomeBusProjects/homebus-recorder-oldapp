@@ -13,7 +13,8 @@
   <thead>
     <tr>
       <th>Uuid</th>
-      <th>Topic</th>
+      <th>DDC</th>
+      <th>Sequence</th>
       <th>Data</th>
       <th>created</th>
     </tr>
@@ -24,7 +25,8 @@
     <% @samples.each do |sample| %>
       <tr>
         <td><%= link_to sample.uuid, controller: 'samples', action: 'index', uuid: sample.uuid  %></td>
-        <td><%= link_to sample.topic, controller: 'samples', action: 'index', topic: sample.topic  %></td>
+        <td><%= link_to sample.ddc, controller: 'samples', action: 'index', ddc: sample.ddc  %></td>
+        <td><%= link_to sample.sequence, controller: 'samples', action: 'index', sequence: sample.sequence  %></td>
         <td><%= sample.data %></td>
 	<td><%= sample.created_at %></td>
       </tr>

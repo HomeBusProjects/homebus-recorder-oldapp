@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_02_235135) do
+ActiveRecord::Schema.define(version: 2020_06_24_155720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "attributes", force: :cascade do |t|
-    t.string "attribute", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["attribute"], name: "index_attributes_on_attribute"
-  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -43,10 +36,14 @@ ActiveRecord::Schema.define(version: 2020_01_02_235135) do
     t.jsonb "data", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ddc"
+    t.string "sequence"
     t.index ["created_at", "topic"], name: "index_samples_on_created_at_and_topic"
     t.index ["created_at", "uuid"], name: "index_samples_on_created_at_and_uuid"
     t.index ["created_at"], name: "index_samples_on_created_at"
     t.index ["data"], name: "index_samples_on_data", using: :gin
+    t.index ["ddc"], name: "index_samples_on_ddc"
+    t.index ["sequence"], name: "index_samples_on_sequence"
     t.index ["topic"], name: "index_samples_on_topic"
     t.index ["uuid"], name: "index_samples_on_uuid"
   end

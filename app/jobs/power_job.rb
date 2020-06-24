@@ -35,10 +35,17 @@ class PowerJob < ApplicationJob
             puts "JSON failure: #{message}"
             c.publish('/recorder/$error', JSON.generate({ topic: topic, message: "invalid JSON: #{message}" }))
           else
-            if json.class == Hash && json[:id]
+            if json.class == Hash && (json[:id] || json[:src])
+              m = topic.match /homebus\/device\/[\d|a-z|A-Z-]+\/([\w|\-|\.]+)/
+              if m
+                ddc = m[1]
+              end
+
               Sample.create data: json,
                             topic: topic,
-                            uuid: json[:id]
+                            seq: json[:sequence],
+                            ddc: ddc,
+                            src: json[:src] || json[:id]
             else
               Sample.create data: json,
                             topic: topic
