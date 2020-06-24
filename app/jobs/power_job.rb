@@ -45,7 +45,7 @@ class PowerJob < ApplicationJob
                             topic: topic,
                             seq: json[:sequence],
                             ddc: ddc,
-                            src: json[:src] || json[:id]
+                            uuid: json[:src] || json[:id]
             else
               Sample.create data: json,
                             topic: topic
