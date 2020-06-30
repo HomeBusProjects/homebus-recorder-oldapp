@@ -33,19 +33,20 @@ class PowerJob < ApplicationJob
             json = JSON.parse message, symbolize_names: true
           rescue
             puts "JSON failure: #{message}"
-            c.publish('/recorder/$error', JSON.generate({ topic: topic, message: "invalid JSON: #{message}" }))
+            c.publish('homebus/recorder/$error', JSON.generate({ topic: topic, message: "invalid JSON: #{message}" }))
           else
-            if json.class == Hash && (json[:id] || json[:src])
-              m = topic.match /homebus\/device\/[\d|a-z|A-Z-]+\/([\w|\-|\.]+)/
-              if m
-                ddc = m[1]
-              end
+            if json.class == Hash && (json[:id] || json[:source])
+              contents = json[:contents][:payload]
 
-              Sample.create data: json,
+              json[:contents].except! :payload
+
+              Sample.create data: contents,
+                            headers: json,
                             topic: topic,
-                            seq: json[:sequence],
+                            timestamp: json[:timestamp],
+                            sequence: json[:sequence],
                             ddc: ddc,
-                            uuid: json[:src] || json[:id]
+                            uuid: json[:source] || json[:id]
             else
               Sample.create data: json,
                             topic: topic

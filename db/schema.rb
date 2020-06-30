@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_155720) do
+ActiveRecord::Schema.define(version: 2020_06_30_200953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,12 +38,16 @@ ActiveRecord::Schema.define(version: 2020_06_24_155720) do
     t.datetime "updated_at", null: false
     t.string "ddc"
     t.string "sequence"
+    t.time "timestamp"
+    t.jsonb "headers"
     t.index ["created_at", "topic"], name: "index_samples_on_created_at_and_topic"
     t.index ["created_at", "uuid"], name: "index_samples_on_created_at_and_uuid"
     t.index ["created_at"], name: "index_samples_on_created_at"
     t.index ["data"], name: "index_samples_on_data", using: :gin
     t.index ["ddc"], name: "index_samples_on_ddc"
+    t.index ["headers"], name: "index_samples_on_headers", using: :gin
     t.index ["sequence"], name: "index_samples_on_sequence"
+    t.index ["timestamp"], name: "index_samples_on_timestamp"
     t.index ["topic"], name: "index_samples_on_topic"
     t.index ["uuid"], name: "index_samples_on_uuid"
   end
