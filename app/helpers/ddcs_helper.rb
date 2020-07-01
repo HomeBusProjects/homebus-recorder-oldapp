@@ -1,0 +1,2 @@
+module DdcsHelper
+end

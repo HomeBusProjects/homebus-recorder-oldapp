@@ -7,27 +7,20 @@ class SamplesController < ApplicationController
     @active_topic = 'ALL'
 
     if params[:topic]
-      @samples = Sample.order(created_at: :desc).where(topic: params[:topic])
+      @samples = Sample.where(topic: params[:topic])
       @active_topic = params[:topic]
     elsif params[:uuid]
-      @samples = Sample.order(created_at: :desc).where(uuid: params[:uuid])
+      @samples = Sample.where(uuid: params[:uuid])
     else
-      @samples = Sample.order(created_at: :desc)
+      @samples = Sample.all
     end
 
     if params[:interval]
       @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
-    else
-      @samples = @samples.paginate(page: params[:page])
     end
 
-    #    all_topics = Sample.distinct.pluck(:topic)
+    @samples = @samples.order(created_at: :desc).paginate(page: params[:page])
     @topics = []
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @samples.all }
-    end
   end
 
   # GET /samples/1

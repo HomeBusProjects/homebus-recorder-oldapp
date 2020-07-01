@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ddcs
   resources :attributes
   resources :samples
   resources :create_device_tables
