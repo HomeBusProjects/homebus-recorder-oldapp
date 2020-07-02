@@ -46,6 +46,8 @@ class PowerJob < ApplicationJob
 
                 json[:contents].except! :payload
 
+                Ddc.where(name: json[:contents][:ddc]).find_or_create!
+
                 Sample.create data: contents,
                               headers: json,
                               topic: topic,

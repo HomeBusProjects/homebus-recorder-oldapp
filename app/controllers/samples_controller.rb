@@ -6,10 +6,10 @@ class SamplesController < ApplicationController
   def index
     @active_topic = 'ALL'
 
-    if params[:topic]
-      @samples = Sample.where(topic: params[:topic])
-      @active_topic = params[:topic]
-    elsif params[:uuid]
+    if params[:ddc]
+      @samples = Sample.where(ddc: params[:ddc])
+      @active_topic = params[:ddc]
+    elsif params[:source]
       @samples = Sample.where(uuid: params[:uuid])
     else
       @samples = Sample.all
@@ -19,8 +19,8 @@ class SamplesController < ApplicationController
       @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
     end
 
-    @samples = @samples.order(created_at: :desc).paginate(page: params[:page])
-    @topics = []
+    @samples = @samples.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
+    @ddcs = Ddc.order(name: :asc)
   end
 
   # GET /samples/1
@@ -85,6 +85,6 @@ class SamplesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sample_params
-      params.require(:sample).permit(:uuid, :topic, :data, :interval)
+      params.require(:sample).permit(:uuid, :source, :ddc, :data, :interval)
     end
 end
