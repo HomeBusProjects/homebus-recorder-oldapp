@@ -5,7 +5,7 @@
 <ul class='nav nav-pills nav-fill justify-content-center'>
   <li class='nav-item'><%= link_to 'ALL', samples_path,  { class: nav_class('ALL') } %></li>
 <% @ddcs.each do |ddc| %>
-  <li class='nav-item'><%= link_to ddc, samples_path(ddc: ddc), { class: nav_class(ddc) }  %></li>
+  <li class='nav-item'><%= link_to ddc.name, samples_path(ddc: ddc), { class: nav_class(ddc) }  %></li>
 <% end %>    
 </ul>
 
