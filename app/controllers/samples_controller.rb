@@ -12,7 +12,7 @@ class SamplesController < ApplicationController
       @samples = @samples.where(ddc: params[:ddc])
       @active_topic = params[:ddc]
     elsif params[:source]
-      @samples = @samples.where(uuid: params[:uuid])
+      @samples = @samples.where(uuid: params[:source])
     end
 
     if params[:interval]
