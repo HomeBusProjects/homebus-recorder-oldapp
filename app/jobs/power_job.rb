@@ -27,8 +27,6 @@ class PowerJob < ApplicationJob
           # we really don't need to record the ticks...
           next if topic == '/tick'
           
-          puts "#{topic}: #{message}"
-
           begin
             json = JSON.parse message.encode('UTF-8', :invalid => :replace, :undef => :replace, replace: '?'), symbolize_names: true
           rescue
@@ -42,6 +40,8 @@ class PowerJob < ApplicationJob
           else
             if json.class == Hash && (json[:id] || json[:source])
              if json[:contents]
+               next if json[:contents][:ddc] == 'org.homebus.experimental.tick'
+
 		contents = json[:contents][:payload]
 
                 json[:contents].except! :payload

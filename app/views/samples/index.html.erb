@@ -25,8 +25,8 @@
     <% @samples.each do |sample| %>
       <tr>
         <td><%= link_to sample.uuid, samples_path(source: sample.uuid)  %></td>
-        <td><%= link_to sample.ddc || '', samples_path(ddc: sample.ddc)  %></td>
-        <td><%= link_to sample.sequence || '', samples_path(sequence: sample.sequence)  %></td>
+        <td><%= link_to sample.ddc || '', samples_path(ddc: sample.ddc.name)  %></td>
+        <td><%= link_to sample.sequence || '', samples_path(sequence: sample.sequence, source: sample.uuid)  %></td>
         <td><%= sample.data %></td>
 	<td><%= sample.created_at %></td>
       </tr>
