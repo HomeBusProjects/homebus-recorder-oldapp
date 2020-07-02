@@ -4,7 +4,7 @@
 
 <ul class='nav nav-pills nav-fill justify-content-center'>
   <li class='nav-item'><%= link_to 'ALL', samples_path,  { class: nav_class('ALL') } %></li>
-<% @ddc.each do |ddc| %>
+<% @ddcs.each do |ddc| %>
   <li class='nav-item'><%= link_to ddc, samples_path(ddc: ddc), { class: nav_class(ddc) }  %></li>
 <% end %>    
 </ul>
@@ -12,7 +12,7 @@
 <table class='table'>
   <thead>
     <tr>
-      <th>Uuid</th>
+      <th>Source</th>
       <th>DDC</th>
       <th>Sequence</th>
       <th>Data</th>
@@ -24,7 +24,7 @@
   <tbody>
     <% @samples.each do |sample| %>
       <tr>
-        <td><%= link_to sample.uuid, samples_path(uuid: sample.uuid)  %></td>
+        <td><%= link_to sample.uuid, samples_path(source: sample.uuid)  %></td>
         <td><%= link_to sample.ddc || '', samples_path(ddc: sample.ddc)  %></td>
         <td><%= link_to sample.sequence || '', samples_path(sequence: sample.sequence)  %></td>
         <td><%= sample.data %></td>
