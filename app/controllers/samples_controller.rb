@@ -5,22 +5,19 @@ class SamplesController < ApplicationController
   # GET /samples.json
   def index
     @active_topic = 'ALL'
+    @ddcs = Ddc.order(name: :asc)
 
+    @samples = Sample.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
     if params[:ddc]
-      @samples = Sample.where(ddc: params[:ddc])
+      @samples = @samples.where(ddc: params[:ddc])
       @active_topic = params[:ddc]
     elsif params[:source]
-      @samples = Sample.where(uuid: params[:uuid])
-    else
-      @samples = Sample.all
+      @samples = @samples.where(uuid: params[:uuid])
     end
 
     if params[:interval]
       @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
     end
-
-    @samples = @samples.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
-    @ddcs = Ddc.order(name: :asc)
   end
 
   # GET /samples/1
