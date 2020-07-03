@@ -4,13 +4,13 @@ class SamplesController < ApplicationController
   # GET /samples
   # GET /samples.json
   def index
-    @active_topic = 'ALL'
+    @active_ddc = ''
     @ddcs = Ddc.order(name: :asc)
 
     @samples = Sample.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
     if params[:ddc]
       @samples = @samples.where(ddc: params[:ddc])
-      @active_topic = params[:ddc]
+      @active_ddc = params[:ddc]
     elsif params[:source]
       @samples = @samples.where(uuid: params[:source])
     end
