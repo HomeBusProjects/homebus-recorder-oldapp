@@ -2,17 +2,9 @@
 
 <h1>Samples</h1>
 
-
 <%= bootstrap_form_tag url: samples_path do |f| %>
-  <%= f.select :ddc, options_for_select(@ddcs, @active_ddc) %>
+  <%= f.select :ddc, options_for_select(@ddcs.map { |ddc| ddc.name }, @active_ddc) %>
 <% end %>
-
-<ul class='nav nav-pills nav-fill justify-content-center'>
-  <li class='nav-item'><%= link_to 'ALL', samples_path,  { class: nav_class('ALL') } %></li>
-<% @ddcs.each do |ddc| %>
-  <li class='nav-item'><%= link_to ddc.name, samples_path(ddc: ddc.name), { class: nav_class(ddc) }  %></li>
-<% end %>    
-</ul>
 
 <table class='table'>
   <thead>
