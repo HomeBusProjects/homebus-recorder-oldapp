@@ -3,7 +3,7 @@
 <h1>Samples</h1>
 
 <%= bootstrap_form_tag url: samples_path do |f| %>
-  <%= f.select :ddc, options_for_select(@ddcs.map { |ddc| ddc.name }, @active_ddc) %>
+  <%= f.select :ddc, options_for_select(@ddcs.map { |ddc| ddc.name }, @active_ddc), onchange: 'this.form.submit()' %>
 <% end %>
 
 <table class='table'>
