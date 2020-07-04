@@ -14,3 +14,17 @@
 @import "bootstrap";
 @import "font-awesome";
 @import "rails_bootstrap_forms";
+
+@media (prefers-color-scheme: dark) {
+    body, .list-group-item, .table, .navbar-light, .bg-light, .nav-link, .navbar-brand, .navbar-toggler {
+        background-color: black !important; 
+        color: white !important; 
+    }
+}
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
