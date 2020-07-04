@@ -5,7 +5,7 @@ class SamplesController < ApplicationController
   # GET /samples.json
   def index
     @active_ddc = ''
-    @ddcs = Ddc.order(name: :asc)
+    @ddcs = [ '' ] + Ddc.order(name: :asc).pluck(:name)
 
     @samples = Sample.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
     if params[:ddc]

@@ -3,7 +3,7 @@
 <h1>Samples</h1>
 
 <%= bootstrap_form_tag url: samples_path, method: :get do |f| %>
-  <%= f.select :ddc, options_for_select(@ddcs.map { |ddc| ddc.name }, @active_ddc), { hide_label: true }, { class: 'form-control', onchange: 'this.form.submit()' } %>
+  <%= f.select :ddc, options_for_select(@ddcs, selected: @active_ddc), { hide_label: true }, { class: 'form-control', onchange: 'this.form.submit()' } %>
 <% end %>
 
 <table class='table'>
