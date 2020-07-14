@@ -43,6 +43,7 @@ gem 'nokogiri'
 gem 'bootstrap', '~> 4.5.0'
 gem 'bootstrap_form', '~> 4.0'
 gem 'jquery-rails'
+gem 'bootswatch'
 
 gem 'font-awesome-rails'
 
