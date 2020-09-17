@@ -8,7 +8,7 @@ class SamplesController < ApplicationController
     @active_source = ''
     @ddcs = [ '' ] + Ddc.order(name: :asc).pluck(:name)
 
-    @samples = Sample.order(created_at: :desc)
+    @samples = Sample.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
     if params[:ddc]
       @samples = @samples.where(ddc: params[:ddc])
       @active_ddc = params[:ddc]
@@ -19,13 +19,9 @@ class SamplesController < ApplicationController
       @active_source = params[:source]
     end
 
-    @interval = params[:interval]
-    if @interval
-      puts "Interval is #{@interval}"
+    if params[:interval]
       @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
     end
-
-    @samples.paginate(page: params[:page], total_entries: 1000)
   end
 
   # GET /samples/1
