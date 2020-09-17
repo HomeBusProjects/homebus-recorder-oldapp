@@ -8,7 +8,7 @@ class SamplesController < ApplicationController
     @active_source = ''
     @ddcs = [ '' ] + Ddc.order(name: :asc).pluck(:name)
 
-    @samples = Sample.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000)
+    @samples = Sample.order(created_at: :desc)
     if params[:ddc]
       @samples = @samples.where(ddc: params[:ddc])
       @active_ddc = params[:ddc]
@@ -21,6 +21,11 @@ class SamplesController < ApplicationController
 
     if params[:interval]
       @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
+    end
+
+    respond_to do |format|
+      format.html { render html: @samples.paginate(page: params[:page], total_entries: 1000) }
+      format.json { render json: @samples.limit(200) }
     end
   end
 
