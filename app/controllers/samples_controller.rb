@@ -20,6 +20,7 @@ class SamplesController < ApplicationController
     end
 
     @interval = params[:interval] || 60*60
+    puts "Interval is #{@interval}"
 
     @samples.where('created_at > ?', Time.now - params[:interval].to_i).paginate(page: params[:page], total_entries: 1000)
   end
