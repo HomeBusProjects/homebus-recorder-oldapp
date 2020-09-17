@@ -9,6 +9,11 @@ class SamplesController < ApplicationController
     @ddcs = [ '' ] + Ddc.order(name: :asc).pluck(:name)
 
     @samples = Sample.order(created_at: :desc)
+
+    if request.format == 'html'
+      @samples.paginate(page: params[:page], total_entries: 1000)
+    end
+
     if params[:ddc]
       @samples = @samples.where(ddc: params[:ddc])
       @active_ddc = params[:ddc]
