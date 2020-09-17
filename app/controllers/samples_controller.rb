@@ -28,8 +28,8 @@ class SamplesController < ApplicationController
       @samples = @samples.where('created_at > ?', Time.now - params[:interval].to_i)
     end
 
-    log.unknown "SAMPLES INDEX"
-    log.unknown @samples.explain
+    logger.unknown "SAMPLES INDEX"
+    logger.unknown @samples.explain
 
     respond_to do |format|
       format.html
