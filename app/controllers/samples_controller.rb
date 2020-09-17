@@ -24,7 +24,7 @@ class SamplesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render html: @samples.paginate(page: params[:page], total_entries: 1000) }
+      format.html { render html: @samples.paginate(page: params[:page], total_entries: 1000), template: 'samples/index.html.erb' }
       format.json { render json: @samples.limit(200) }
     end
   end
