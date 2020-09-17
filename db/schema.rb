@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_172122) do
+ActiveRecord::Schema.define(version: 2020_09_17_225925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_07_02_172122) do
     t.string "sequence"
     t.time "timestamp"
     t.jsonb "headers"
+    t.index ["created_at", "ddc", "uuid"], name: "index_samples_on_created_at_and_ddc_and_uuid"
     t.index ["created_at", "topic"], name: "index_samples_on_created_at_and_topic"
     t.index ["created_at", "uuid"], name: "index_samples_on_created_at_and_uuid"
     t.index ["created_at"], name: "index_samples_on_created_at"
