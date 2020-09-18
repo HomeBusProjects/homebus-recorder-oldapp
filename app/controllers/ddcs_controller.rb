@@ -8,7 +8,7 @@ class DdcsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @ddcs.pluck(&:name) }
+      format.json { render json: @ddcs.map { |ddc| ddc.name } }
     end
   end
 
