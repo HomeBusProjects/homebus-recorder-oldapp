@@ -5,6 +5,11 @@ class DdcsController < ApplicationController
   # GET /ddcs.json
   def index
     @ddcs = Ddc.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @ddcs.pluck(&:name) }
+    end
   end
 
   # GET /ddcs/1
