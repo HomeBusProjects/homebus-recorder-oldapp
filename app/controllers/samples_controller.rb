@@ -8,11 +8,7 @@ class SamplesController < ApplicationController
     @active_source = ''
     @ddcs = [ '' ] + Ddc.order(name: :asc).pluck(:name)
 
-    @samples = Sample.order(created_at: :desc)
-
-    if request.format == 'html'
-      @samples.paginate(page: params[:page], total_entries: 1000)
-    end
+    @samples = Sample.order(created_at: :desc).paginate(page: params[:page], total_entries: 1000, per_page: params[:per_page])
 
     if params[:ddc]
       @samples = @samples.where(ddc: params[:ddc])
@@ -30,11 +26,6 @@ class SamplesController < ApplicationController
 
     logger.unknown "SAMPLES INDEX"
     logger.unknown @samples.explain
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @samples.limit(200) }
-    end
   end
 
   # GET /samples/1
@@ -99,6 +90,6 @@ class SamplesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sample_params
-      params.require(:sample).permit(:uuid, :source, :ddc, :data, :interval)
+      params.require(:sample).permit(:uuid, :source, :ddc, :data, :interval, :per_page)
     end
 end
