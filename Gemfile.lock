@@ -141,7 +141,7 @@ GEM
     pg (1.2.3)
     popper_js (1.16.0)
     public_suffix (4.0.6)
-    puma (4.3.9)
+    puma (4.3.11)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -269,7 +269,7 @@ DEPENDENCIES
   mqtt
   nokogiri
   pg
-  puma (~> 4.3.9)
+  puma (~> 4.3.11)
   rack-cors
   rails (~> 5.2.1)
   sass-rails (~> 5.0)
