@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.5'
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.6.2'
 gem 'puma', '~> 4.3.11'
 gem 'rack-cors'
 
@@ -13,7 +13,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
-gem 'actionview', '~> 5.2.4.2'
+gem 'actionview', '~> 5.2.6.2'
+gem 'actionpack', '~> 5.2.6.2'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
